@@ -4,7 +4,7 @@ class ShopifyHookOrdersController < ApplicationController
 
   def create
 
-    @incoming_order = ShopifyHookOrder.new(:customerid => params[:order[:customer[:id]]])
+    @incoming_order = ShopifyHookOrder.new(params[:order[:customer[:id]]])
     if @incoming_order.save
       head :ok
     else
