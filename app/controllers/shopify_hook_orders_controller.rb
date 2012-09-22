@@ -5,8 +5,8 @@ class ShopifyHookOrdersController < ApplicationController
   def create
 
     @incoming_order = ShopifyHookOrder.new(:customerid => params[:order[:customer[:id]]])
-    @incoming_order.save
-  
+    if @incoming_order.save
+      head :ok      
   end
 
   def verify_webhook
