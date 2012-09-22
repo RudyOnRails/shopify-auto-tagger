@@ -1,0 +1,1 @@
+ShopifyAPI::Base.site = "https://dbcd2609317402e44e8bde88c972a1ec:dc5c8117f016bf98f09efba8cfd5ef80@bednar-and-sons9625.myshopify.com/admin"
