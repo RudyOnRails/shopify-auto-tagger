@@ -18,6 +18,8 @@ end
 module OtaboAutoTagger
   class Application < Rails::Application
 
+    ShopifyAPI::Session.setup({:api_key => "dbcd2609317402e44e8bde88c972a1ec", :secret => "bd619de9cd03e82c47ebd1772a5422b5"})
+
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers
     # -- all .rb files in that directory are automatically loaded.
