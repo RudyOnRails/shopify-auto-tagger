@@ -4,12 +4,13 @@ class ShopifyHookOrdersController < ApplicationController
 
   def create
 
-    shopify_hook_order = ShopifyHookOrder.new
-    shopify_hook_order.customerid = params["customer"]["id"]
-    if shopify_hook_order.save
+    customer_id = params["customer"]["id"]
+    order = ShopifyHookOrder.new
+    order.customerid = customer_id
+    if order.save
       head :ok
     else
-      render :status => 666
+      render :status => 500
     end
 
   end
