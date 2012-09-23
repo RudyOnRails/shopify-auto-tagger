@@ -19,7 +19,7 @@ module OtaboAutoTagger
   class Application < Rails::Application
 
     # Shopify API connection credentials:
-    # config.shopify.secret = "bd619de9cd03e82c47ebd1772a5422b5"  # test shop tool 1 secret for verifying webhook
+    config.shopify.secret = "bd619de9cd03e82c47ebd1772a5422b5"  # test shop tool 1 secret for verifying webhook
 
     # Settings in config/environments/* take precedence over those specified here.
     # Application configuration should go into files in config/initializers

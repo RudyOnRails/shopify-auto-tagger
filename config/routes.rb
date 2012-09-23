@@ -1,5 +1,5 @@
 OtaboAutoTagger::Application.routes.draw do
   
-  post 'shopify-hook-orders' => 'shopify_hook_orders#create'
+  post 'orders' => 'orders#create'
 
 end
