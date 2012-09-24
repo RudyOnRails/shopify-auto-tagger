@@ -1,31 +1,28 @@
 class OrdersController < ApplicationController
   
-  before_filter :verify_webhook, :except => 'verify_webhook'
-
-  def create
-
-    customer_id = params["customer"]["id"]
-    order = Order.new
-    order.customerid = customer_id
-    if order.save
-      head :ok
-    else
-      render :status => 500
+  # before_filter :verify_webhook, :except => 'verify_webhook'
+    
+  def auto_tag
+    customer = ShopifyAPI::Customer.find(params["customer"]["id"])
+    params["line_items"].each do |l|
+      ShopifyAPI::SmartCollection.find(:all, :params => { :product_id => l["product_id"] }).each do |sc|
+        (customer.update_attribute("tags", "#{customer.tags}, Education") unless customer.tags.include?("Education")) unless !sc.id == 8188956
+      end
     end
-
+    head :ok
   end
 
-  private
+  # private
 
-  def verify_webhook
-    data = request.body.read.to_s
-    hmac_header = request.headers['HTTP_X_SHOPIFY_HMAC_SHA256']
-    digest  = OpenSSL::Digest::Digest.new('sha256')
-    calculated_hmac = Base64.encode64(OpenSSL::HMAC.digest(digest, OtaboAutoTagger::Application.config.shopify.secret, data)).strip
-    unless calculated_hmac == hmac_header
-      head :unauthorized
-    end
-    request.body.rewind
-  end
+  # def verify_webhook
+  #   data = request.body.read.to_s
+  #   hmac_header = request.headers['HTTP_X_SHOPIFY_HMAC_SHA256']
+  #   digest  = OpenSSL::Digest::Digest.new('sha256')
+  #   calculated_hmac = Base64.encode64(OpenSSL::HMAC.digest(digest, OtaboAutoTagger::Application.config.shopify.secret, data)).strip
+  #   unless calculated_hmac == hmac_header
+  #     head :unauthorized
+  #   end
+  #   request.body.rewind
+  # end
 
 end
