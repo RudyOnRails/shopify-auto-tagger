@@ -6,7 +6,8 @@ class OrdersController < ApplicationController
     customer = ShopifyAPI::Customer.find(params["customer"]["id"])
     params["line_items"].each do |l|
       ShopifyAPI::SmartCollection.find(:all, :params => { :product_id => l["product_id"] }).each do |sc|
-        (customer.update_attribute("tags", "#{customer.tags}, Education") unless customer.tags.include?("Education")) unless !sc.id == 8188956
+        sc_title = sc.title
+        customer.update_attribute("tags", "#{customer.tags}, #{sc_title}") unless customer.tags.include?(sc_title)
       end
     end
     head :ok
